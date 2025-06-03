@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Buy order: {{ order }}</title>
+        <script src="https://js.stripe.com/basil/stripe.js"></script>
+	</head>
+    <body>
+        <h1>Order: {{ order }}</h1>  
+        <p>Description:</p>
+        <p>{{ order.description|safe }}</p>
+        <p>Price:</p>
+        <p>{{ order.total_amount }}$</p>
+        <button id="buy_button">Buy</button>
+        <script type="text/javascript">
+            var stripe = Stripe("{{ public_key_stripe }}");
+            var buyButton = document.getElementById('buy_button');
+            buyButton.addEventListener('click', function() {
+              fetch("{% url 'payments:buy_order' pk=order.id %}", {method: 'GET'})
+              .then(response => response.json())
+              .then(session => stripe.redirectToCheckout({ sessionId: session.session_id }))
+            });
+        </script>
+    </body>
+</html>
