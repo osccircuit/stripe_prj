@@ -4,6 +4,7 @@ from payments import views
 app_name = 'payments'
 
 urlpatterns = [
+    path('', views.IndexView.as_view(), name='index'),
     path('buy/<int:pk>', views.BuyItemView.as_view(), name='buy_item'),
     path('buy-order/<int:pk>', views.BuyOrderView.as_view(), name='buy_order'),
     path('create-order/', views.OrderCreateView.as_view(), name='create_order'),

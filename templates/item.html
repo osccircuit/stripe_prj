@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Buy ID: {{ item.id }}</title>
-        <script src="https://js.stripe.com/basil/stripe.js"></script>
-	</head>
-    <body>
+{% extends "base_stripe.html" %}
+
+{% block title %}
+    <title>Buy ID: {{ item.id }}</title>
+{% endblock title %}
+
+{% block content %}
         <h1>"{{ item.name }}" ID: {{ item.id }}</h1>  
         <p>Description of "{{ item.name }}" ID: {{ item.id }}</p>
         <p>{{ item.description }}</p>
         <p>Price of Item {{ item.id }}</p>
         <p>{{ item.price }}$</p>
-        <button id="buy_button">Buy</button>
-        <script type="text/javascript">
-            var stripe = Stripe("{{ public_key_stripe }}");
-            var buyButton = document.getElementById('buy_button');
-            buyButton.addEventListener('click', function() {
-              fetch('/buy/{{ item.id }}', {method: 'GET'})
-              .then(response => response.json())
-              .then(session => stripe.redirectToCheckout({ sessionId: session.session_id }))
-            });
-        </script>
-    </body>
-</html>
+{% endblock content %}
+
+{% block url %}
+url = '{% url "payments:buy_item" pk=item.id %}'
+{% endblock url %}

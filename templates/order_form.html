@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
+
+{% block title %}
     <title>Оформление заказа</title>
-</head>
-<body>
-    <h1>Выберите товары</h1>
+{% endblock title %}
+
+{% block content %}
+        <h1>Выберите товары</h1>
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -34,5 +33,4 @@
         {% endfor %}
         <button type="submit">Оформить заказ</button>
     </form>
-</body>
-</html>
+{% endblock content %}

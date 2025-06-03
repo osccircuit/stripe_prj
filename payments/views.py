@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib import messages
@@ -42,7 +42,9 @@ class OrderCreateView(View):
         order.create_description()
         return redirect('payments:get_order', pk=order.id)
 
-
+class IndexView(TemplateView):
+    template_name = 'index.html'
+    
 class OrderDetailView(DetailView):
     model = Order
     template_name = 'order.html'
