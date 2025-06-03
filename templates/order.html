@@ -1,0 +1,17 @@
+{% extends "base_stripe.html" %}
+
+{% block title %}
+    <title>Buy order: {{ order }}</title>
+{% endblock title %}
+
+{% block content %}
+        <h1>Order: {{ order }}</h1>  
+        <p>Description:</p>
+        <p>{{ order.description|safe }}</p>
+        <p>Price:</p>
+        <p>{{ order.total_amount }}$</p>
+{% endblock content %}
+
+{% block url %}
+url = '{% url "payments:buy_order" pk=order.id %}'
+{% endblock url %}
